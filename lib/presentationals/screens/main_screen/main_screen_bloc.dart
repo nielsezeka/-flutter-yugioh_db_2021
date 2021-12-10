@@ -1,4 +1,4 @@
-import 'package:flutter_yugioh_2021/services/service_facade.dart';
+import 'package:flutter_yugioh_2021/bloc/bloc_index.dart';
 import 'package:flutter_yugioh_2021/services/service_index.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -22,5 +22,22 @@ class MainScreenBloc {
                 [],
           ),
         );
+  }
+
+  onFocusCardData(String originalID) {
+    databaseService
+        .observerAllCardInformation()
+        .switchMap(
+          (value) => Stream.value(
+            value.data?.firstWhere(
+              (element) => element.id.toString() == originalID,
+            ),
+          ),
+        )
+        .listen((cardToObserve) {
+      if (cardToObserve != null) {
+        GlobalBloc.appStateBloc.acceptCard(cardToObserve);
+      }
+    });
   }
 }

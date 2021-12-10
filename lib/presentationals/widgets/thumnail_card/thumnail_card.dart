@@ -22,7 +22,6 @@ class ThumnailCard extends StatelessWidget with CustomThemeMixin {
       return AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(10),
-        color: themeDisplayFor(context).currentTheme().cardBackgroundColor,
         child: SizedBox(
           width: double.infinity,
           height: 300,

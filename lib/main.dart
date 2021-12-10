@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_yugioh_2021/presentationals/screens/screen_index.dart';
+import 'package:flutter_yugioh_2021/routes/routes.dart';
 import 'package:flutter_yugioh_2021/services/service_index.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -17,11 +17,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(CustomThemeData()),
-      child: const MaterialApp(
+      child: MaterialApp(
+        initialRoute: './',
+        routes: Routes.routes(),
         title: 'Flutter Demo',
-        home: Scaffold(
-          body: MainScreen(),
-        ),
+        // home: MainScreen(),
       ),
     );
   }
