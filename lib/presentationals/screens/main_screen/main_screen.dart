@@ -24,6 +24,13 @@ class _MainScreenState extends State<MainScreen> with CustomThemeMixin {
         builder: (localContext, snapshot) {
           final List<CardInfoOnVerticalListModel> concreteData =
               snapshot.data ?? [];
+          if (concreteData.length == 0) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
           return ListVerticalCardsWidget(
             cardsDisplay: concreteData,
             onPressed: (itemPresses) {

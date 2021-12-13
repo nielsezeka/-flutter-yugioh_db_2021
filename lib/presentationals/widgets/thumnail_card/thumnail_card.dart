@@ -8,56 +8,58 @@ class ThumnailCard extends StatelessWidget with CustomThemeMixin {
     required this.imageLink,
     required this.cardName,
     required this.cardDeciption,
+    this.heigh,
   }) : super(key: key);
   final String imageLink;
   final String cardName;
   final String cardDeciption;
+  final double? heigh;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (
       context,
       boxConstraints,
     ) {
-      final haftSizeWidth = boxConstraints.maxWidth / 2;
-      return AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        padding: const EdgeInsets.all(10),
-        child: SizedBox(
-          width: double.infinity,
+      return Align(
+        alignment: Alignment.topCenter,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          padding: const EdgeInsets.all(10),
           height: 300,
-          child: Row(
-            children: [
-              Expanded(
-                child: Center(
-                  child: CachedNetworkImage(
-                    width: haftSizeWidth,
-                    fadeInDuration: const Duration(milliseconds: 300),
-                    imageUrl: imageLink,
-                    placeholder: (context, link) => Image.asset(
-                      'assets/default_icon/card_back.jpg',
-                      fit: BoxFit.cover,
+          width: double.infinity,
+          child: OverflowBox(
+            child: Center(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CachedNetworkImage(
+                      imageUrl: imageLink,
+                      placeholder: (context, url) =>
+                          Image.asset('assets/default_icon/card_back.jpg'),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                    fit: BoxFit.contain,
                   ),
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      cardName.toUpperCase(),
-                      style:
-                          themeDisplayFor(context).currentTheme().typo.cardText,
-                      textAlign: TextAlign.center,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          cardName.toUpperCase(),
+                          style: themeDisplayFor(context)
+                              .currentTheme()
+                              .typo
+                              .cardText,
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          cardDeciption,
+                        ),
+                      ],
                     ),
-                    Text(
-                      cardDeciption,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       );

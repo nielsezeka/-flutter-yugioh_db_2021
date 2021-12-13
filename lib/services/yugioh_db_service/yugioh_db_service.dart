@@ -12,9 +12,7 @@ class YugiohService {
   final BehaviorSubject<AllCardResponseModel> _allCards =
       BehaviorSubject<AllCardResponseModel>.seeded(
           AllCardResponseModel(data: []));
-  YugiohService() {
-    getAllCard();
-  }
+  YugiohService() {}
   Future<void> getAllCard() async {
     try {
       var response = await client.get(Uri.parse(linkToGetAllCards));

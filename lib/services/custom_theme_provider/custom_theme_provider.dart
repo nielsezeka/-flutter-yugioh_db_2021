@@ -15,6 +15,7 @@ class CustomThemeData {
   final Color cardBackgroundColor = const Color(0xFFFFC641);
   final Color appBackgroundColor = const Color(0xFF292621);
   final Typography typo = Typography();
+  static Duration defaultAnimationDuration = Duration(milliseconds: 800);
 }
 
 class ThemeNotifier with ChangeNotifier implements ReassembleHandler {

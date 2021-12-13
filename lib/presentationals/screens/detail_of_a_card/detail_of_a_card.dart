@@ -1,43 +1,98 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_yugioh_2021/bloc/bloc_index.dart';
-import 'package:flutter_yugioh_2021/services/yugioh_db_service/response_model/all_card_response_model.dart';
-
 import '../../../services/service_index.dart';
+import '../../presentional_index.dart';
 
-class DetailOfCard extends StatelessWidget with CustomThemeMixin {
-  const DetailOfCard({Key? key, required this.idOfItem}) : super(key: key);
-  final String idOfItem;
+class DetailOfCard extends StatefulWidget {
+  const DetailOfCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<DetailOfCard> createState() => _DetailOfCardState();
+}
+
+class _DetailOfCardState extends State<DetailOfCard> with CustomThemeMixin {
+  bool isShowed = true;
+  Duration animatedItemDuration = Duration(milliseconds: 100);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<CardData>(
-          stream: GlobalBloc.appStateBloc.cardToShow(),
-          builder: (context, snapshot) {
-            CardData? cardData = snapshot.data;
-            if (cardData != null) {
-              print('imageHero${cardData.id.toString()}');
-              return Column(
-                children: [
-                  Expanded(
-                      child: Container(
-                    color: Colors.red,
-                  )),
-                  Expanded(
-                    child: Hero(
-                      tag: 'imageHero${cardData.id.toString()}',
-                      child: Container(
-                        color: themeDisplayFor(context)
-                            .currentTheme()
-                            .cardBackgroundColor,
+      backgroundColor:
+          themeDisplayFor(context).currentTheme().appBackgroundColor,
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Hero(
+            tag:
+                'imageHero${GlobalBloc.appStateBloc.focusedCardHeroCheating().id}',
+            child: Material(
+              type: MaterialType.transparency,
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: themeDisplayFor(context)
+                        .currentTheme()
+                        .cardBackgroundColor,
+                    borderRadius: BorderRadius.circular(8.0)),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 300,
+                        child: ThumnailCard(
+                          cardName: GlobalBloc.appStateBloc
+                                  .focusedCardHeroCheating()
+                                  .name ??
+                              '',
+                          imageLink: GlobalBloc.appStateBloc
+                                  .focusedCardHeroCheating()
+                                  .cardImages
+                                  ?.first
+                                  .imageUrl ??
+                              '',
+                          cardDeciption: '',
+                        ),
                       ),
-                    ),
+                      _renderWithAnimatedOpacity(
+                        child: Container(
+                          height: 300,
+                          color: Colors.red,
+                        ),
+                      ),
+                      _renderWithAnimatedOpacity(
+                        child: CupertinoButton(
+                          child: Container(
+                            height: 30,
+                            child: Text("back"),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isShowed = false;
+                            });
+                            Future.delayed(animatedItemDuration, () {
+                              Navigator.of(context).pop();
+                            });
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              );
-            } else {
-              return Container();
-            }
-          }),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _renderWithAnimatedOpacity({required Widget child}) {
+    return AnimatedOpacity(
+      opacity: isShowed ? 1.0 : 0.0,
+      child: child,
+      duration: animatedItemDuration,
     );
   }
 }

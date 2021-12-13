@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_yugioh_2021/presentationals/screens/screen_index.dart';
 import 'package:flutter_yugioh_2021/routes/routes.dart';
 import 'package:flutter_yugioh_2021/services/service_index.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+
+import 'presentationals/screens/detail_of_a_card/detail_of_a_card.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,8 +21,22 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(CustomThemeData()),
       child: MaterialApp(
-        initialRoute: './',
-        routes: Routes.routes(),
+        home: MainScreen(),
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case Routes.detailCard:
+              return PageTransition(
+                child: DetailOfCard(),
+                curve: Curves.bounceInOut,
+                type: PageTransitionType.fade,
+                settings: settings,
+                reverseDuration: CustomThemeData.defaultAnimationDuration,
+                duration: CustomThemeData.defaultAnimationDuration,
+              );
+            default:
+              return null;
+          }
+        },
         title: 'Flutter Demo',
         // home: MainScreen(),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_yugioh_2021/routes/routes.dart';
 import 'package:flutter_yugioh_2021/services/custom_theme_provider/custom_theme_provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../presentional_index.dart';
 
@@ -34,23 +35,20 @@ class ListVerticalCardsWidget extends StatefulWidget {
 
 class _ListVerticalCardsWidgetState extends State<ListVerticalCardsWidget>
     with CustomThemeMixin {
-  bool isRenderWithHero = false;
+  final ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: scrollController,
       itemBuilder: (context, index) {
         return CupertinoButton(
+          padding: EdgeInsets.zero,
           onPressed: () {
             if (widget.onPressed != null) {
-              setState(() {
-                isRenderWithHero = true;
-              });
               widget.onPressed!(widget.cardsDisplay[index]);
             }
           },
-          child: isRenderWithHero
-              ? _renderWithHero(index)
-              : _renderNormally(index),
+          child: _renderWithHero(index),
         );
       },
       itemCount: widget.cardsDisplay.length,
@@ -58,24 +56,24 @@ class _ListVerticalCardsWidgetState extends State<ListVerticalCardsWidget>
   }
 
   Widget _renderWithHero(int index) {
-    print('before imageHero${widget.cardsDisplay[index].cardIndentifier}');
     return Hero(
       tag: 'imageHero${widget.cardsDisplay[index].cardIndentifier}',
-      child: _renderNormally(index),
+      child: Material(
+          type: MaterialType.transparency, child: _renderNormally(index)),
     );
   }
 
   Widget _renderNormally(int index) {
     return Container(
-      color: themeDisplayFor(context).currentTheme().cardBackgroundColor,
       margin: const EdgeInsets.all(10),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: ThumnailCard(
-          cardName: widget.cardsDisplay[index].cardName,
-          imageLink: widget.cardsDisplay[index].cardImage,
-          cardDeciption: widget.cardsDisplay[index].cardText,
-        ),
+      decoration: BoxDecoration(
+        color: themeDisplayFor(context).currentTheme().cardBackgroundColor,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: ThumnailCard(
+        cardName: widget.cardsDisplay[index].cardName,
+        imageLink: widget.cardsDisplay[index].cardImage,
+        cardDeciption: widget.cardsDisplay[index].cardText,
       ),
     );
   }

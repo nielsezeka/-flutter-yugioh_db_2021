@@ -6,6 +6,14 @@ import '../../presentional_index.dart';
 
 class MainScreenBloc {
   final databaseService = ServiceFacade.getService<YugiohService>();
+  MainScreenBloc() {
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        databaseService.getAllCard();
+      },
+    );
+  }
   Stream<List<CardInfoOnVerticalListModel>> observeAllcardsChange() {
     return databaseService.observerAllCardInformation().switchMap(
           (value) => Stream.value(

@@ -10,4 +10,10 @@ class AppStateBloc {
   Stream<CardData> cardToShow() {
     return _currentCard.stream;
   }
+
+  CardData focusedCardHeroCheating() {
+    // if we put it to stream the data will changed after animation triggered
+    // so this is a cheating way to show hero animation
+    return _currentCard.value;
+  }
 }
