@@ -1,6 +1,5 @@
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_yugioh_2021/presentationals/screens/screen_index.dart';
+import 'package:flutter_yugioh_2021/presentationals/presentional_index.dart';
 import 'package:flutter_yugioh_2021/routes/routes.dart';
 import 'package:flutter_yugioh_2021/services/service_index.dart';
 import 'package:page_transition/page_transition.dart';
@@ -22,14 +21,12 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(CustomThemeData()),
       child: MaterialApp(
-        home: Scaffold(
-          body: MainScreen(),
-        ),
+        home: const TabbarWithScreens(),
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case Routes.detailCard:
               return PageTransition(
-                child: DetailOfCard(),
+                child: const DetailOfCard(),
                 curve: Curves.bounceInOut,
                 type: PageTransitionType.fade,
                 settings: settings,
@@ -41,7 +38,6 @@ class MyApp extends StatelessWidget {
           }
         },
         title: 'Flutter Demo',
-        // home: MainScreen(),
       ),
     );
   }

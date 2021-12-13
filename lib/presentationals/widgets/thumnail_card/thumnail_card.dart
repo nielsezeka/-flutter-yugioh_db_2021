@@ -66,7 +66,7 @@ class ThumnailCard extends StatelessWidget with CustomThemeMixin {
         imageUrl: imageLink,
         placeholder: (context, url) =>
             Image.asset('assets/default_icon/card_back.jpg'),
-        errorWidget: (context, url, error) => Icon(Icons.error),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
     );
   }
