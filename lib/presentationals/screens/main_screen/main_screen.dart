@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_yugioh_2021/routes/routes.dart';
 import '../../../services/service_index.dart';
@@ -24,8 +23,8 @@ class _MainScreenState extends State<MainScreen> with CustomThemeMixin {
         builder: (localContext, snapshot) {
           final List<CardInfoOnVerticalListModel> concreteData =
               snapshot.data ?? [];
-          if (concreteData.length == 0) {
-            return Center(
+          if (concreteData.isEmpty) {
+            return const Center(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.red,
               ),

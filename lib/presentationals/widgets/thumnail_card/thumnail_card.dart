@@ -31,32 +31,8 @@ class ThumnailCard extends StatelessWidget with CustomThemeMixin {
             child: Center(
               child: Row(
                 children: [
-                  Expanded(
-                    child: CachedNetworkImage(
-                      imageUrl: imageLink,
-                      placeholder: (context, url) =>
-                          Image.asset('assets/default_icon/card_back.jpg'),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          cardName.toUpperCase(),
-                          style: themeDisplayFor(context)
-                              .currentTheme()
-                              .typo
-                              .cardText,
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          cardDeciption,
-                        ),
-                      ],
-                    ),
-                  ),
+                  _renderCardImage(),
+                  _renderQuickSummary(context),
                 ],
               ),
             ),
@@ -64,5 +40,34 @@ class ThumnailCard extends StatelessWidget with CustomThemeMixin {
         ),
       );
     });
+  }
+
+  Expanded _renderQuickSummary(BuildContext context) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            cardName.toUpperCase(),
+            style: themeDisplayFor(context).currentTheme().typo.cardText,
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            cardDeciption,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Expanded _renderCardImage() {
+    return Expanded(
+      child: CachedNetworkImage(
+        imageUrl: imageLink,
+        placeholder: (context, url) =>
+            Image.asset('assets/default_icon/card_back.jpg'),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+      ),
+    );
   }
 }
