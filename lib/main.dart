@@ -1,3 +1,4 @@
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_yugioh_2021/presentationals/screens/screen_index.dart';
 import 'package:flutter_yugioh_2021/routes/routes.dart';
@@ -21,7 +22,9 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(CustomThemeData()),
       child: MaterialApp(
-        home: MainScreen(),
+        home: Scaffold(
+          body: MainScreen(),
+        ),
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case Routes.detailCard:
