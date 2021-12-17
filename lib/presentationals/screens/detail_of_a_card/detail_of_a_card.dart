@@ -57,8 +57,22 @@ class _DetailOfCardState extends State<DetailOfCard> with CustomThemeMixin {
                       ),
                       _renderWithAnimatedOpacity(
                         child: Container(
-                          height: 300,
-                          color: Colors.red,
+                          //height: 300,
+                          padding: EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                              color: themeDisplayFor(context)
+                                  .currentTheme()
+                                  .displayBlockColor,
+                              borderRadius: BorderRadius.circular(14.0)),
+                          child: Center(
+                            child: Text(
+                              GlobalBloc.appStateBloc
+                                      .focusedCardHeroCheating()
+                                      .desc ??
+                                  '',
+                              textAlign: TextAlign.justify,
+                            ),
+                          ),
                         ),
                       ),
                       _renderWithAnimatedOpacity(
