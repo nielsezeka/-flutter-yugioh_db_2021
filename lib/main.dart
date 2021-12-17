@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(CustomThemeData()),
       child: MaterialApp(
+        theme: ThemeData(fontFamily: CustomTypography.appFont.fontFamily),
         home: const TabbarWithScreens(),
         onGenerateRoute: (settings) {
           switch (settings.name) {

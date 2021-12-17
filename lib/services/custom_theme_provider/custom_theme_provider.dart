@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class Typography {
-  static TextStyle appFont = GoogleFonts.varelaRound();
+class CustomTypography {
+  static TextStyle appFont = GoogleFonts.robotoCondensed();
   final TextStyle cardText = TextStyle(
     fontSize: 20,
     color: Color(0xFFF8F8F8),
@@ -22,11 +22,11 @@ class Typography {
 }
 
 class CustomThemeData {
-  final Color cardBackgroundColor = const Color(0xFFFFC641);
+  final Color cardBackgroundColor = const Color(0xFF23262F);
   final Color displayBlockColor = const Color(0xFFffff7f);
-  final Color appBackgroundColor = const Color(0xFF292621);
+  final Color appBackgroundColor = const Color(0xFF141416);
   final Color disabledColor = Colors.grey;
-  final Typography typo = Typography();
+  final CustomTypography typo = CustomTypography();
   static Duration defaultAnimationDuration = Duration(milliseconds: 800);
 }
 

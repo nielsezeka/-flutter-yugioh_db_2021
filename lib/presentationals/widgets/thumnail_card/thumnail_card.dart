@@ -25,7 +25,7 @@ class ThumnailCard extends StatelessWidget with CustomThemeMixin {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           padding: const EdgeInsets.all(10),
-          height: 300,
+          height: 280,
           width: double.infinity,
           child: OverflowBox(
             child: Center(
@@ -42,8 +42,9 @@ class ThumnailCard extends StatelessWidget with CustomThemeMixin {
     });
   }
 
-  Expanded _renderQuickSummary(BuildContext context) {
-    return Expanded(
+  Widget _renderQuickSummary(BuildContext context) {
+    return SizedBox(
+      width: 170,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -62,11 +63,14 @@ class ThumnailCard extends StatelessWidget with CustomThemeMixin {
 
   Expanded _renderCardImage() {
     return Expanded(
-      child: CachedNetworkImage(
-        imageUrl: imageLink,
-        placeholder: (context, url) =>
-            Image.asset('assets/default_icon/card_back.jpg'),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: CachedNetworkImage(
+          imageUrl: imageLink,
+          placeholder: (context, url) =>
+              Image.asset('assets/default_icon/card_back.jpg'),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+        ),
       ),
     );
   }
