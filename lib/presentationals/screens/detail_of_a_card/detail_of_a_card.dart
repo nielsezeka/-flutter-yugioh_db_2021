@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_yugioh_2021/bloc/bloc_index.dart';
+import 'package:flutter_yugioh_2021/presentationals/widgets/animated_opacity_on_appear/animated_opacity_on_appear.dart';
 import '../../../services/service_index.dart';
 import '../../presentional_index.dart';
 
@@ -23,10 +24,9 @@ class _DetailOfCardState extends State<DetailOfCard> with CustomThemeMixin {
           themeDisplayFor(context).currentTheme().appBackgroundColor,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Hero(
-            tag:
-                'imageHero${GlobalBloc.appStateBloc.focusedCardHeroCheating().id}',
+            tag: 'imageHero${GlobalBloc.appStateBloc.focusedCard().id}',
             child: Material(
               type: MaterialType.transparency,
               child: Container(
@@ -42,12 +42,10 @@ class _DetailOfCardState extends State<DetailOfCard> with CustomThemeMixin {
                       SizedBox(
                         height: 300,
                         child: ThumnailCard(
-                          cardName: GlobalBloc.appStateBloc
-                                  .focusedCardHeroCheating()
-                                  .name ??
-                              '',
+                          cardName:
+                              GlobalBloc.appStateBloc.focusedCard().name ?? '',
                           imageLink: GlobalBloc.appStateBloc
-                                  .focusedCardHeroCheating()
+                                  .focusedCard()
                                   .cardImages
                                   ?.first
                                   .imageUrl ??
@@ -57,7 +55,6 @@ class _DetailOfCardState extends State<DetailOfCard> with CustomThemeMixin {
                       ),
                       _renderWithAnimatedOpacity(
                         child: Container(
-                          //height: 300,
                           padding: EdgeInsets.all(14),
                           decoration: BoxDecoration(
                               color: themeDisplayFor(context)
@@ -66,10 +63,7 @@ class _DetailOfCardState extends State<DetailOfCard> with CustomThemeMixin {
                               borderRadius: BorderRadius.circular(14.0)),
                           child: Center(
                             child: Text(
-                              GlobalBloc.appStateBloc
-                                      .focusedCardHeroCheating()
-                                      .desc ??
-                                  '',
+                              GlobalBloc.appStateBloc.focusedCard().desc ?? '',
                               textAlign: TextAlign.justify,
                             ),
                           ),
@@ -103,10 +97,10 @@ class _DetailOfCardState extends State<DetailOfCard> with CustomThemeMixin {
   }
 
   Widget _renderWithAnimatedOpacity({required Widget child}) {
-    return AnimatedOpacity(
-      opacity: isShowed ? 1.0 : 0.0,
+    return AnimatedOpacityOnAppear(
+      isShowed: isShowed,
+      animatedItemDuration: animatedItemDuration,
       child: child,
-      duration: animatedItemDuration,
     );
   }
 }

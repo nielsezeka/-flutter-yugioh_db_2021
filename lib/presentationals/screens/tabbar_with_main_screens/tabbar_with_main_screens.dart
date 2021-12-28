@@ -32,7 +32,7 @@ class _TabbarWithScreensState extends State<TabbarWithScreens>
     CustomTabbarItem(
         icon: const Icon(PhosphorIcons.cards_bold), label: 'all cards'),
     CustomTabbarItem(
-        icon: const Icon(PhosphorIcons.grid_four_bold), label: 'Archetype'),
+        icon: const Icon(PhosphorIcons.grid_four_bold), label: 'Cardset'),
     CustomTabbarItem(
         icon: const Icon(PhosphorIcons.gear_bold), label: 'settings'),
   ];
@@ -52,10 +52,10 @@ class _TabbarWithScreensState extends State<TabbarWithScreens>
           child: TabBarView(
         controller: controller,
         children: [
-          MainScreen(
+          const MainScreen(
             filterCards: '',
           ),
-          AcheTypeScreen(),
+          const CardSetScreen(),
           MainScreen(
             filterCards: filteredText,
           )
@@ -83,10 +83,10 @@ class _TabbarWithScreensState extends State<TabbarWithScreens>
               title: Text(
                 e.label.toUpperCase(),
                 style: theme.typo.highLightText.copyWith(
-                  color: theme.cardBackgroundColor,
+                  color: theme.highlightColor,
                 ),
               ),
-              activeColor: theme.cardBackgroundColor,
+              activeColor: theme.highlightColor,
               inactiveColor: theme.disabledColor,
             ))
         .toList();

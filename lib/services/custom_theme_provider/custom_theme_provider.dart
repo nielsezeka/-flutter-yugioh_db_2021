@@ -6,12 +6,12 @@ class CustomTypography {
   static TextStyle appFont = GoogleFonts.robotoCondensed();
   final TextStyle cardText = TextStyle(
     fontSize: 20,
-    color: Color(0xFFF8F8F8),
+    color: const Color(0xFFF8F8F8),
     fontFamily: appFont.fontFamily,
   );
   final TextStyle highLightText = TextStyle(
     fontSize: 14,
-    color: Color(0xFFF8F8F8),
+    color: const Color(0xFFFFD166),
     fontFamily: appFont.fontFamily,
   );
   final TextStyle disabledText = TextStyle(
@@ -19,6 +19,8 @@ class CustomTypography {
     color: Colors.grey,
     fontFamily: appFont.fontFamily,
   );
+  highLightTextSmall() =>
+      highLightText.copyWith(fontSize: 10, fontWeight: FontWeight.w100);
 }
 
 class CustomThemeData {
@@ -26,8 +28,9 @@ class CustomThemeData {
   final Color displayBlockColor = const Color(0xFFffff7f);
   final Color appBackgroundColor = const Color(0xFF141416);
   final Color disabledColor = Colors.grey;
+  final Color highlightColor = const Color(0xFFFFD166);
   final CustomTypography typo = CustomTypography();
-  static Duration defaultAnimationDuration = Duration(milliseconds: 800);
+  static Duration defaultAnimationDuration = const Duration(milliseconds: 800);
 }
 
 class ThemeNotifier with ChangeNotifier implements ReassembleHandler {
